@@ -41,7 +41,7 @@ class CryptoAvroConsumer:
         with open(Path(__file__).resolve().parent / schema_path) as f:
             return f.read()
 
-    def consume_from_kafka(self, topics: list[str], bucket_name: str):
+    def consume_from_kafka(self, topics: list[str], output_dir: Path):
         self.consumer.subscribe(topics=topics)
         while True:
             try:
@@ -56,17 +56,11 @@ class CryptoAvroConsumer:
                     dt = key.date
                     symbol = key.symbol.replace(':', '-')
 
-                    filepath = Path(f"data/{dt}/{symbol}-{dt}.avro")
+                    filepath = output_dir / f"dt={dt}/{symbol}_{dt}.avro"
                     logger.debug(f'{filepath = }')
                     if not filepath.exists():
                         filepath.resolve().parent.mkdir(parents=True, exist_ok=True)
-                        # with open(filepath, 'w') as f:
-                        #     f.write('')
-                    # with open(filepath, 'a') as f:
-                        # f.write(json.dumps(record.__dict__) + '\n')
                     write_avro(record, filepath)
-
-                    # write_to_gcs(bucket_name, f'data.jsonlines', json.dumps(record.__dict__))
             except KeyboardInterrupt:
                 break
 
@@ -77,8 +71,8 @@ class CryptoAvroConsumer:
 @click.option('--host', '-h', type=click.STRING, required=False, default='localhost')
 @click.option('--group-id', '-g', type=click.STRING, required=False, default='dshol.crypto.avro.consumer.1')
 @click.option('--auto-offset-reset', '-f', type=click.STRING, required=False, default='earliest')
-@click.option('--bucket-name', '-b', type=click.STRING, required=False, default='dshol-crypto-data')
-def cli(host: str, group_id: str, auto_offset_reset: str, bucket_name: str):
+@click.option('--output-dir', '-o', type=click.STRING, required=True)
+def cli(host: str, group_id: str, auto_offset_reset: str, output_dir: str):
     config = {
         'bootstrap.servers': BOOTSTRAP_SERVERS.format(host=host),
         'group.id': group_id,
@@ -88,7 +82,7 @@ def cli(host: str, group_id: str, auto_offset_reset: str, bucket_name: str):
         'schema.value': VALUE_SCHEMA_PATH,
     }
     avro_consumer = CryptoAvroConsumer(props=config)
-    avro_consumer.consume_from_kafka(topics=[KAFKA_TOPIC], bucket_name=bucket_name)
+    avro_consumer.consume_from_kafka(topics=[KAFKA_TOPIC], output_dir=Path(output_dir))
 
 
 if __name__ == '__main__':

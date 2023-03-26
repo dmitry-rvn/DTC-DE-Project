@@ -1,11 +1,13 @@
 import json
+from pathlib import Path
 
-from fastavro import parse_schema, writer, reader
+from fastavro import parse_schema, writer
+
+from settings import VALUE_SCHEMA_PATH
 
 
-with open('schemas/crypto_record_value.avsc') as f:
+with open(Path(__file__).resolve().parent / VALUE_SCHEMA_PATH) as f:
     schema = parse_schema(json.load(f))
-    # schema = f.read()
 
 
 def write_avro(record, filepath):
