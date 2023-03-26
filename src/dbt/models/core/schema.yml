@@ -1,0 +1,77 @@
+version: 2
+
+sources:
+  - name: core
+    database: dshol-dtc-de
+    schema: dtc_crypto_data
+    tables:
+      - name: ext_trade_data
+
+models:
+  - name: fct_trade_data_hourly
+    description: "Crypto trade data by hour"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - symbol
+            - date_time
+    columns:
+      - name: symbol
+        tests:
+          - not_null:
+              severity: error
+      - name: date_time
+        tests:
+          - not_null:
+              severity: error
+      - name: price_close
+      - name: price_open
+      - name: price_delta
+      - name: volume
+
+  - name: dim_symbol
+    description: "List of crypto symbols"
+    columns:
+      - name: symbol
+        tests:
+          - unique:
+              severity: error
+      - name: description
+        tests:
+          - not_null:
+              severity: warn
+      - name: exchange
+        tests:
+          - unique:
+              severity: error
+      - name: display_symbol
+        tests:
+          - not_null:
+              severity: warn
+
+  - name: dim_exchange
+    description: "List of crypto exchanges"
+    columns:
+      - name: exchange_id
+        tests:
+          - unique:
+              severity: error
+      - name: exchange_name
+        tests:
+          - not_null:
+              severity: error
+      - name: company_name
+
+  - name: agg_symbol_daily_volumes
+    description: "Aggregation of volumes per symbol and date"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - symbol
+            - dt
+    columns:
+      - name: exchange
+      - name: symbol
+      - name: symbol_description
+      - name: dt
+      - name: volume
