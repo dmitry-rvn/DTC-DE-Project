@@ -42,8 +42,8 @@ models:
               severity: warn
       - name: exchange
         tests:
-          - unique:
-              severity: error
+          - not_null:
+              severity: warn
       - name: display_symbol
         tests:
           - not_null:

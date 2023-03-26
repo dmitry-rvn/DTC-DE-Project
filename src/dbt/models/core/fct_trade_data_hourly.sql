@@ -1,6 +1,6 @@
 {{ config(materialized='table') }}
 
-SELECT
+SELECT DISTINCT
     symbol,
     dt,
     TIMESTAMP_SECONDS(timestamp) AS date_time,
