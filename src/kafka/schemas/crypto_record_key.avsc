@@ -1,0 +1,15 @@
+{
+  "namespace": "com.dshol.crypto",
+  "type": "record",
+  "name": "CryptoRecordKey",
+  "fields": [
+    {
+      "name": "symbol",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "string"
+    }
+  ]
+}

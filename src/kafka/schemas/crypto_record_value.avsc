@@ -1,0 +1,31 @@
+{
+  "namespace": "com.dshol.crypto",
+  "type": "record",
+  "name": "CryptoRecord",
+  "fields": [
+    {
+      "name": "symbol",
+      "type": "string"
+    },
+    {
+      "name": "resolution",
+      "type": "string"
+    },
+    {
+      "name": "close_price",
+      "type": "float"
+    },
+    {
+      "name": "open_price",
+      "type": "float"
+    },
+    {
+      "name": "volume",
+      "type": "float"
+    },
+    {
+      "name": "timestamp",
+      "type": "int"
+    }
+  ]
+}
