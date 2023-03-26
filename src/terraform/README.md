@@ -12,13 +12,13 @@ We will create two resources:
 ! sudo apt update && sudo apt install terraform
 ```
 
-##### 2. Add JSON file with GCP credentials into start folder (`/content/`), then create variables:
+#### 2. Add JSON file with GCP credentials into start folder (`/content/`), then create variables:
 ```
 %env PROJECT_ID=...
 %env CREDENTIALS_FILEPATH=...
 ```
 
-##### 3. Authorize with `gcloud`:
+#### 3. Authorize with `gcloud`:
 ```
 ! gcloud auth application-default login
 ```
@@ -28,27 +28,27 @@ I also needed to run this command:
 ! gcloud auth application-default set-quota-project $PROJECT_ID
 ```
 
-##### 5. Clone repo and navigate to `terraform` folder:
+#### 5. Clone repo and navigate to `terraform` folder:
 ```
 ! git clone https://github.com/dmitry-rvn/DTC-DE-Project.git
 %cd DTC-DE-Project/src/terraform
 ```
 
-##### 6. Initialize terraform:
+#### 6. Initialize terraform:
 ```
 ! terraform init
 ```
 
 ![terraform_init](../../assets/terraform/terraform_init.png)
 
-##### 7. Plan actions:
+#### 7. Plan actions:
 ```
 ! terraform plan -var="project=$PROJECT_ID" -var="credentials=$CREDENTIALS_FILEPATH"
 ```
 
 ![terraform_plan](../../assets/terraform/terraform_plan.png)
 
-##### 8. Apply execution plan:
+#### 8. Apply execution plan:
 ```
 ! terraform apply -var="project=$PROJECT_ID" -var="credentials=$CREDENTIALS_FILEPATH"
 ```
