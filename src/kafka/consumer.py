@@ -69,7 +69,7 @@ class CryptoAvroConsumer:
 
 @click.command()
 @click.option('--host', '-h', type=click.STRING, required=False, default='localhost')
-@click.option('--group-id', '-g', type=click.STRING, required=False, default='dshol.crypto.avro.consumer.1')
+@click.option('--group-id', '-g', type=click.STRING, required=False, default='crypto.avro.consumer.1')
 @click.option('--auto-offset-reset', '-f', type=click.STRING, required=False, default='earliest')
 @click.option('--output-dir', '-o', type=click.STRING, required=True)
 def cli(host: str, group_id: str, auto_offset_reset: str, output_dir: str):

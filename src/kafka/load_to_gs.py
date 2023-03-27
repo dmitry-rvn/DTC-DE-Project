@@ -6,7 +6,7 @@ from loguru import logger
 
 
 @click.command()
-@click.option('--credentials-file', type=click.Path(exists=True, file_okay=True), required=True)
+@click.option('--credentials-file', type=click.Path(exists=True, file_okay=True), required=False)
 @click.option('--input-dir', type=click.Path(exists=True, dir_okay=True, file_okay=False), required=True)
 @click.option('--bucket-name', type=click.STRING, required=True)
 @click.option('--storage-dir', type=click.STRING, required=True)
@@ -26,7 +26,10 @@ def cli(credentials_file: str, input_dir: str, bucket_name: str, storage_dir: st
                 fileN.avro
     where `dt=YYYY-MM-DD` - folders (= partitions by day).
     """
-    storage_client = storage.Client.from_service_account_json(credentials_file)
+    if credentials_file is not None:
+        storage_client = storage.Client.from_service_account_json(credentials_file)
+    else:
+        storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
 
     for partition_dir in Path(input_dir).glob('dt=*'):
