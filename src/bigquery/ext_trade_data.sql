@@ -9,4 +9,3 @@ OPTIONS (
   hive_partition_uri_prefix = "gs://dshol-dtc-data/trade_data",
   uris = ['gs://dshol-dtc-data/trade_data/*.avro']
 )
-
