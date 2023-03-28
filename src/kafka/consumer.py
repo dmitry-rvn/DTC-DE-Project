@@ -1,6 +1,3 @@
-"""
-TODO: write to GSC bucket
-"""
 from pathlib import Path
 
 import click

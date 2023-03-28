@@ -1,17 +1,12 @@
 """
 API reference: https://finnhub.io/docs/api/crypto-candles
 """
-from datetime import datetime, timedelta
+from datetime import datetime
 from dataclasses import dataclass
 from typing import Any
 
 import finnhub
 from loguru import logger
-import click
-
-
-# RESOLUTION = '60'  # 60 minutes; available values: 1, 5, 15, 30, 60, D, W, M
-# SYMBOLS = ['BINANCE:ETHUSDT', 'BINANCE:BTCUSDT', 'BINANCE:DOGEUSDT', 'BINANCE:XRPUSDT']
 
 
 @dataclass
@@ -42,7 +37,9 @@ class CryptoRecord:
         return cls(**dct)
 
 
-def format_api_output_for_symbol(symbol: str, resolution: str, api_output: dict[str, list[Any]]) -> list[CryptoRecord]:
+def format_api_output_for_symbol(symbol: str,
+                                 resolution: str,
+                                 api_output: dict[str, list[Any]]) -> list[CryptoRecord]:
     records = []
     if api_output.get('s') != 'ok':
         logger.warning(f'Status not OK for {symbol = }, {resolution = }')
@@ -55,8 +52,11 @@ def format_api_output_for_symbol(symbol: str, resolution: str, api_output: dict[
     return records
 
 
-def request_data_for_symbol(api_key: str, symbol: str, resolution: str,
-                            datetime_start: datetime, datetime_end: datetime) -> dict[str, list[Any]]:
+def request_data_for_symbol(api_key: str,
+                            symbol: str,
+                            resolution: str,
+                            datetime_start: datetime,
+                            datetime_end: datetime) -> dict[str, list[Any]]:
     logger.debug(f'Data request: {symbol = }, {resolution = }, {datetime_start = }, {datetime_end = }')
     finnhub_client = finnhub.Client(api_key=api_key)
     dt_start_ts = int(datetime_start.timestamp())
