@@ -9,6 +9,10 @@
 
 1. Create dbt project from GitHub or just start a new project and copy-paste files from GitHub repo to dbt project (don't forget to create new branch)
 
+Project structure is following:
+
+![project_structure](../../assets/dbt/project_structure.png)
+
 2. In dbt terminal run commands:
 
 * install dependencies:
