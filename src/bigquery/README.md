@@ -1,6 +1,5 @@
 ## Instructions to set up data warehouse (BigQuery)
 
-
 #### 1. Navigate to GCP BigQuery.
 
 #### 2. Open new query tab.

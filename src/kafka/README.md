@@ -78,7 +78,7 @@ Run consumer:
 python3.10 src/kafka/consumer.py -h $KAFKA_HOST -o data/kafka
 ```
 
-Stop consumer.
+Stop consumer (Ctrl+C).
 
 Load data from container to Cloud Storage, then delete data from container:
 ```commandline

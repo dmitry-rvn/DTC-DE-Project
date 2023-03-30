@@ -12,7 +12,7 @@ We will create two resources:
 ! sudo apt update && sudo apt install terraform
 ```
 
-#### 2. Add JSON file with GCP credentials into start folder (`/content/`), then create variables:
+#### 2. Add JSON file with GCP Service Account (e.g. with `Editor` role) credentials into start folder (`/content/`), then create variables of the GCP project ID and path to the credentials file:
 ```
 %env PROJECT_ID=...
 %env CREDENTIALS_FILEPATH=...
@@ -28,7 +28,7 @@ I also needed to run this command:
 ! gcloud auth application-default set-quota-project $PROJECT_ID
 ```
 
-#### 5. Clone repo and navigate to `terraform` folder:
+#### 5. Clone GitHub repo and navigate to `terraform` folder:
 ```
 ! git clone https://github.com/dmitry-rvn/DTC-DE-Project.git
 %cd DTC-DE-Project/src/terraform
